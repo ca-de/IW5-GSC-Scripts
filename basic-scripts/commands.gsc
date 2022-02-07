@@ -28,9 +28,9 @@ onPlayerSpawned() {
     for(;;) {
         // Wait until a chat is sent
         level waittill( "say", message, player );
-		
-		// Only allow admins to use commands. Add more in the style shown when wanted.
-		if ( player.name != "ryh" && player.name != "Drag" )
+
+        // Only allow admins to use commands. Add more in the style shown when wanted.
+        if ( player.name != "ryh" && player.name != "Drag" )
             continue;
 
         // Reset the arguments
