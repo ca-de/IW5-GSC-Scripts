@@ -1,7 +1,9 @@
 /**
 *
 * Usage: Type any command using a double slash. For example: "//kill Drag".
-* Look in the switch cases for more specific use cases.
+* Look in the switch cases for more specific use cases. You also do not have to
+* type the whole name, you can type a substring the name contains, such as "dr" for
+* "Drag".
 *
 * Created by Drag
 *
@@ -67,8 +69,6 @@ onPlayerSpawned() {
             // Usage: "//freeze player"
             case "/freeze":
                 onePlayerArg();
-                if ( level.args[1] == "" )
-                    continue;
                 target = findPlayerByName( level.args[1] );
                 target freezeControls( true );
             break;
@@ -77,8 +77,6 @@ onPlayerSpawned() {
             // Usage: "//unfreeze player"
             case "/unfreeze":
                 onePlayerArg();
-                if ( level.args[1] == "" )
-                    continue;
                 target = findPlayerByName( level.args[1] );
                 target freezeControls( false );
             break;
@@ -95,8 +93,6 @@ onPlayerSpawned() {
             // Usage: "//tpto player"
             case "/tpto":
                 onePlayerArg();
-                if ( level.args[1] == "" )
-                    continue;
                 target = findPlayerByName( level.args[1] );
                 player setOrigin( target getOrigin() );
             break;
@@ -105,8 +101,6 @@ onPlayerSpawned() {
             // Usage: "//bring player"
             case "/bring":
                 onePlayerArg();
-                if ( level.args[1] == "" )
-                    continue;
                 target = findPlayerByName( level.args[1] );
                 target setOrigin( player getOrigin() );
             break;
@@ -134,17 +128,15 @@ onPlayerSpawned() {
             // Takes all weapons from all players.
             // Usage: "//takeall"
             case "/takeall":
-                foreach( p in level.players ) {
+                foreach( p in level.players )
                     p takeAllWeapons();
-                }
             break;
             
             // Takes a specified weapon from all players.
             // Usage: "//takeweapon weapon"
             case "/takeweapon":
-                foreach( p in level.players ) {
+                foreach( p in level.players )
                     p takeWeapon( level.args[1] );
-                }
             break;
 
             // Gives all allies (survivors) a specified weapon.
@@ -205,9 +197,8 @@ onPlayerSpawned() {
             // Teleports all players to the user.
             // Usage: "//bringall"
             case "/bringall":
-                foreach ( p in level.players ) {
+                foreach ( p in level.players )
                     p setOrigin( player getOrigin() );
-                }
             break;
 
             // Teleports all allies (survivors) to the user.
@@ -290,7 +281,6 @@ twoPlayerArg() {
     // Parse between spaces
     i = 1;
     foreach( s in str ) {
-        break;
         level.args[i] = s;
         i++;
     }
@@ -299,8 +289,7 @@ twoPlayerArg() {
 // Returns the player of the name passed in, if in the game. 0 if not.
 findPlayerByName( name ) {
     foreach ( player in level.players ) {
-        if ( player.name == name )
+        if ( issubstr(tolower(player.name), tolower(name) ))
             return player;
     }
-    return 0;
 }
